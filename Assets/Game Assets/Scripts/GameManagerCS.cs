@@ -117,11 +117,11 @@ public class GameManagerCS : MonoBehaviour {
 
         if (!gameStart && !gameRunning)
         {
-            if (Input.GetKey(KeyCode.Space))
-			{
-				InvokeRepeating("PlayInvaders",0.001f,1.0f);
+            //if (Input.GetKey(KeyCode.Space))
+			//{
+				InvokeRepeating("PlayInvaders",0.001f,0.8f);
                 gameStart = true;
-            }
+            //}
         }
 
         if(gameRunning)
@@ -158,6 +158,7 @@ public class GameManagerCS : MonoBehaviour {
 
             if (gameOver)
             {
+				CancelInvoke();
                 ClearBoard();
                 scoreScreen.SetActive(true);
                 gameGUI.SetActive(false);
@@ -305,9 +306,10 @@ public class GameManagerCS : MonoBehaviour {
 
 		saucerPos = new Vector3 ((saucerBounds * -saucerDirection), missileMax - 0.5f, 0.0f);
 
-		STimer = Random.Range(10.0f, 20.0f);
-		yield return new WaitForSeconds(STimer);
+		//STimer = Random.Range(10.0f, 30.0f);
+		yield return new WaitForSeconds(10.0f);
 
+		// So as not to keep mass spawn saucer
 		if (!saucerMade)
 		{
 			//Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
