@@ -1,0 +1,10 @@
+5.2.2f1:2.1.0.0
+StandaloneWindows
+D:/Applications/Unity3D/Editor/Data/Managed/UnityEngine.dll
+D:/Applications/Unity3D/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll
+D:/Applications/Unity3D/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll
+D:/Applications/Unity3D/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll
+D:/Applications/Unity3D/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll
+D:/Applications/Unity3D/Editor/Data/Managed/UnityEditor.dll
+D:/Applications/Unity3D/Editor/Data\Managed/Mono.Cecil.dll
+D:/Applications/Unity3D/Editor/Data/PlaybackEngines/iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll
