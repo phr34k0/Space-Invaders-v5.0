@@ -92,6 +92,10 @@ public class GameManagerCS : MonoBehaviour {
 	private float STimer;
 
     public int gameScore;
+	
+	public int pitchCount = 0;
+	public AudioSource invaderAudio;
+	//public int invaderaudiowait = 2;
 
     void Awake()
     {
@@ -107,7 +111,7 @@ public class GameManagerCS : MonoBehaviour {
         scoreScreen.SetActive(true);
         gameGUI.SetActive(false);
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -115,12 +119,14 @@ public class GameManagerCS : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.Space))
 			{
+				InvokeRepeating("PlayInvaders",0.001f,1.0f);
                 gameStart = true;
             }
         }
-        
+
         if(gameRunning)
-        { 
+        {
+
             if (playerLives <= 0)
             {
                 gameOver = true;
@@ -158,6 +164,14 @@ public class GameManagerCS : MonoBehaviour {
                 gameRunning = false;
             }
         }
+	}
+
+	void PlayInvaders()
+	{
+		pitchCount = ++pitchCount % 4;
+		invaderAudio.pitch = 1.0f - (pitchCount * 0.1f);
+		GetComponent<AudioSource>().pitch = invaderAudio.pitch;
+		GetComponent<AudioSource>().Play();
 	}
 
     void SetupGame()
@@ -291,18 +305,21 @@ public class GameManagerCS : MonoBehaviour {
 
 		saucerPos = new Vector3 ((saucerBounds * -saucerDirection), missileMax - 0.5f, 0.0f);
 
-		STimer = Random.Range(2.0f, 10.0f);
+		STimer = Random.Range(10.0f, 20.0f);
 		yield return new WaitForSeconds(STimer);
 
 		if (!saucerMade)
 		{
-			Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
+			//Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
+			saucerObject = (GameObject)Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
+			saucerObject.GetComponent<SaucerCS>().value = saucerScore;
+			saucerObject.name = "Saucer";
 			saucerMade = true;
 		}
 
 		//saucerObject = (GameObject)Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
-		saucerObject.GetComponent<SaucerCS>().value = saucerScore;
-		saucerObject.name = "Saucer";
+		//saucerObject.GetComponent<SaucerCS>().value = saucerScore;
+		//saucerObject.name = "Saucer";
 		//saucerMade = true;
 	}
 
