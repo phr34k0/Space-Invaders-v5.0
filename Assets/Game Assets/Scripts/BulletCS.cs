@@ -12,6 +12,9 @@ public class BulletCS : MonoBehaviour {
 
     public float explosionTime;
 
+	public AudioClip impactSound;
+	public AudioClip bombimpactSound;
+
     void Awake()
     {
         shooter = GameObject.Find("Player").GetComponent<ShooterCS>();
@@ -60,6 +63,7 @@ public class BulletCS : MonoBehaviour {
             //Debug.LogError("Bullet hit: " + other.gameObject.name);
             gm.gameScore += other.gameObject.GetComponent<EnemyCS>().value;
             Destroy(other.gameObject);
+			AudioSource.PlayClipAtPoint(impactSound, transform.position, 0.5f);
 			gm.CheckLevel();
             DestroyBullet();
         }
@@ -68,7 +72,9 @@ public class BulletCS : MonoBehaviour {
 			//Debug.LogError("Bullet hit: " + other.gameObject.name);
 			gm.gameScore += other.gameObject.GetComponent<SaucerCS>().value;
 			Destroy(other.gameObject);
+			AudioSource.PlayClipAtPoint(impactSound, transform.position, 0.5f);
 			DestroyBullet();
+			gm.saucerMade = false;
 		}
         else if (other.gameObject.tag == "Shelter")
         {

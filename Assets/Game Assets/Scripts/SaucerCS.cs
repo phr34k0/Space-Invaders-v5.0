@@ -5,8 +5,10 @@ public class SaucerCS : MonoBehaviour {
 
 	public GameObject bombPrefab;
 	private GameObject bombObject;
+	public AudioClip[] saucerSound;
 
 	public int value;
+	public int type;
 	public bool bombMade;
 	private Vector3 saucerPos;
 
@@ -30,7 +32,7 @@ public class SaucerCS : MonoBehaviour {
 	}
 	void FixedUpdate()
 	{
-		MoveSaucer ();
+		MoveSaucer();
 
 		if (!bombMade 
 		    && (Random.Range(0.0f, 1.0f) < gm.bombPercent)
@@ -43,6 +45,8 @@ public class SaucerCS : MonoBehaviour {
 	void InitSaucer()
 	{
 		bombMade = false;
+		GetComponent<AudioSource>().clip = saucerSound[(type % 2)];
+		GetComponent<AudioSource>().Play();
 	}
 
 	void MoveSaucer()

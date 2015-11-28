@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿//
+//
+// Coded By C-zaR
+//
+using UnityEngine;
 using System.Collections;
 
 public class GameManagerCS : MonoBehaviour {
@@ -73,6 +77,10 @@ public class GameManagerCS : MonoBehaviour {
 	public float saucerSpeed;
 	public float saucerBounds;
 
+	//public int backgroundDirection;
+	//public float backgroundSpeed;
+	//private Vector3 backgroundPos;
+
     public bool playerDead;
     public float playerRespawn;
     private int invaderNr;
@@ -89,13 +97,24 @@ public class GameManagerCS : MonoBehaviour {
 	public bool levelClear;
 	public int currentInvaders;
 
-	private float STimer;
+	//private float STimer;
 
     public int gameScore;
 	
 	public int pitchCount = 0;
+	//public AudioClip[] invadermarchSound;
 	public AudioSource invaderAudio;
+	public bool invmarchAudio;
 	//public int invaderaudiowait = 2;
+	//public float marchTimer;
+	//public float marchTimer2;
+	//public float marchTimer3;
+	//public float marchTimer4;
+	//public bool soundPlayed = false;
+
+	public AudioClip extralifeSound;
+	public AudioClip stageclearSound;
+	public AudioClip gameoverSound;
 
     void Awake()
     {
@@ -117,11 +136,10 @@ public class GameManagerCS : MonoBehaviour {
 
         if (!gameStart && !gameRunning)
         {
-            //if (Input.GetKey(KeyCode.Space))
-			//{
-				InvokeRepeating("PlayInvaders",0.001f,0.8f);
+            if (Input.GetKey(KeyCode.Space))
+			{
                 gameStart = true;
-            //}
+            }
         }
 
         if(gameRunning)
@@ -151,28 +169,114 @@ public class GameManagerCS : MonoBehaviour {
                 moveDown = false;
             }
 
-			if (!saucerMade)
+			//if (Time.time > marchTimer && !soundPlayed)
+			//{
+			//PlayInvaderMarch(0);
+			//}
+			//
+			//if (Time.time > marchTimer2 && soundPlayed)
+			//{
+			//PlayInvaderMarch2(0);
+			//}
+			//
+			//if (Time.time > marchTimer3 && soundPlayed)
+			//{
+			//PlayInvaderMarch3(0);
+			//}
+			//
+			//if (Time.time > marchTimer4 && soundPlayed)
+			//{
+			//PlayInvaderMarch4(0);
+			//}
+
+			
+			if (levelClear)
 			{
-				StartCoroutine( MakeSaucer() );
+				//StopCoroutine("Soundspeed");
+				//invmarchAudio = true;
+				AudioSource.PlayClipAtPoint(stageclearSound, transform.position, 2f);
+				levelClear = false;
+				CancelInvoke("MakeSaucer");
+				//CancelInvoke("PlayInvaders");
+				ClearBoard();
+				NewLevel();
+				AddPlayerLife();
 			}
 
             if (gameOver)
             {
-				CancelInvoke();
+				AudioSource.PlayClipAtPoint(gameoverSound, transform.position, 2f);
+				StopCoroutine("Soundspeed");
+				//invmarchAudio = true;
+				CancelInvoke("MakeSaucer");
+				//CancelInvoke("PlayInvaders");
                 ClearBoard();
                 scoreScreen.SetActive(true);
                 gameGUI.SetActive(false);
                 gameRunning = false;
             }
-        }
+
+			if (currentInvaders <= 54)
+			{
+				invaderSpeed = 0.1f;
+			}
+
+			if (currentInvaders <= 30)
+			{
+				invaderSpeed = 0.5f;
+			}
+
+			if (currentInvaders <= 20)
+			{
+				invaderSpeed = 1.0f;
+			}
+
+			if (currentInvaders <= 10)
+			{
+				invaderSpeed = 1.5f;
+			}
+
+			if (currentInvaders <= 3 )
+			{
+				invaderSpeed = 2.0f;
+			}
+		}
+	}
+
+	IEnumerator Soundspeed()
+	{
+		invmarchAudio = false;
+		do
+		{
+			yield return new WaitForSeconds(0.9f * (currentInvaders / 50f));
+			PlayInvaders();
+		}while(!invmarchAudio);
 	}
 
 	void PlayInvaders()
 	{
 		pitchCount = ++pitchCount % 4;
 		invaderAudio.pitch = 1.0f - (pitchCount * 0.1f);
-		GetComponent<AudioSource>().pitch = invaderAudio.pitch;
-		GetComponent<AudioSource>().Play();
+		invaderAudio.Play();
+	}
+
+	void CheckSaucer()
+	{
+		if (currentInvaders <= 54)
+		{
+			if (!saucerMade)
+			{
+				InvokeRepeating("MakeSaucer",2f,20f);
+			}
+		}
+
+		if (currentInvaders <= 3)
+		{
+			if (!saucerMade)
+			{
+				saucerMade = true;
+			}
+		}
 	}
 
     void SetupGame()
@@ -201,8 +305,11 @@ public class GameManagerCS : MonoBehaviour {
         totalMissiles = 0;
         shelterNr = 0;
 		levelClear = false;
-        MakePlayer();
+		ClearBoard();
+       	//MakePlayer();
         MakeInvaders();
+		CheckSaucer();
+		//Soundspeed();
 
         for (int i = 0; i <= 1; i++)
         {
@@ -220,11 +327,13 @@ public class GameManagerCS : MonoBehaviour {
         scoreScreen.SetActive(false);
         gameGUI.SetActive(true);
         gameScore = 0;
-		maxLives = startLives;
-        playerLives = maxLives;
+		//maxLives = startLives;
+		playerLives = 3;
+		invmarchAudio = false;
 		ShowLives(playerLives);
 		CheckLevel();
         NewLevel();
+		StartCoroutine("Soundspeed");
     }
 
     public void ClearBoard()
@@ -237,6 +346,8 @@ public class GameManagerCS : MonoBehaviour {
         DestroyBases();
         DestroyGround();
 		DestroySaucer();
+		DestroyPlayer();
+		currentInvaders = -1;
     }
 
     void MakePlayer()
@@ -246,6 +357,14 @@ public class GameManagerCS : MonoBehaviour {
         playerMade = true;
         playerDead = false;
     }
+
+	void AddPlayerLife()
+	{
+		playerLives++;
+		AudioSource.PlayClipAtPoint(extralifeSound, transform.position, 2f);
+		if (playerLives >= maxLives) playerLives = maxLives;
+		ShowLives(playerLives);
+	}
 
     void MakeInvaders()
     {
@@ -286,8 +405,8 @@ public class GameManagerCS : MonoBehaviour {
         gameScreen = (GameObject)Instantiate(gameScreenPrefab, Vector3.zero, Quaternion.identity);
         gameScreen.name = "Background";
     }
-
-	IEnumerator MakeSaucer()
+	
+	void MakeSaucer()
 	{
 		saucerType = Random.Range (0, 4);
 		if (Random.Range (0.0f, 1.0f) < 0.5f) 
@@ -299,15 +418,19 @@ public class GameManagerCS : MonoBehaviour {
 			saucerDirection = 1;
 		}
 		saucerScore = (saucerType + 1) * 50;
-		if (saucerType == 3)
+		if (saucerType == 2)
 		{
 			saucerScore = 300;
+		}
+		if (saucerType == 3)
+		{
+			saucerScore = 1000;
 		}
 
 		saucerPos = new Vector3 ((saucerBounds * -saucerDirection), missileMax - 0.5f, 0.0f);
 
-		//STimer = Random.Range(10.0f, 30.0f);
-		yield return new WaitForSeconds(10.0f);
+		//STimer = Random.Range (0.0f, 1.0f);
+		//yield return new WaitForSeconds(10.0f);
 
 		// So as not to keep mass spawn saucer
 		if (!saucerMade)
@@ -315,14 +438,24 @@ public class GameManagerCS : MonoBehaviour {
 			//Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
 			saucerObject = (GameObject)Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
 			saucerObject.GetComponent<SaucerCS>().value = saucerScore;
+			saucerObject.GetComponent<SaucerCS>().type = saucerType;
 			saucerObject.name = "Saucer";
+
+			if (saucerType <= 1)
+			{
+				saucerObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+			}
+			if (saucerType == 2)
+			{
+				saucerObject.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+			}
+			if (saucerType == 3)
+			{
+				saucerObject.GetComponent<Renderer>().material.SetColor("_Color", Color.magenta);
+			}
+
 			saucerMade = true;
 		}
-
-		//saucerObject = (GameObject)Instantiate(saucerPrefab, saucerPos, Quaternion.identity);
-		//saucerObject.GetComponent<SaucerCS>().value = saucerScore;
-		//saucerObject.name = "Saucer";
-		//saucerMade = true;
 	}
 
 
@@ -355,6 +488,8 @@ public class GameManagerCS : MonoBehaviour {
 
         playerObject.transform.position = playerPos;
     }
+
+	// Destroy Objects
 
     void DestroyEnemies()
     {
@@ -409,6 +544,12 @@ public class GameManagerCS : MonoBehaviour {
 		Destroy (bombObject);
 	}
 
+	void DestroyPlayer()
+	{
+		playerObject = GameObject.FindGameObjectWithTag ("Player");
+		Destroy (playerObject);
+	}
+
 	void DestroyExplosion()
 	{
 		explosionObject = GameObject.FindGameObjectsWithTag ("Explosion");
@@ -434,5 +575,41 @@ public class GameManagerCS : MonoBehaviour {
 	public void CheckLevel()
 	{
 		currentInvaders--;
+		if (currentInvaders <= -1)
+		levelClear = true;
 	}
+
+	//void PlayInvaderMarch(int type)
+	//{
+	//GetComponent<AudioSource>().clip = invadermarchSound[type];
+	//GetComponent<AudioSource>().Play();
+	//marchTimer2 = marchTimer + 1.0f;
+	//marchTimer3 = marchTimer + 1.0f;
+	//marchTimer4 = marchTimer + 1.0f;
+	//soundPlayed = true;
+	//}
+	//
+	//void PlayInvaderMarch2(int type)
+	//{
+	//GetComponent<AudioSource>().clip = invadermarchSound[type + 1];
+	//GetComponent<AudioSource>().Play();
+	//marchTimer = Time.time * (invaderNr / 50f);
+	//soundPlayed = false;
+	//}
+	//
+	//void PlayInvaderMarch3(int type)
+	//{
+	//GetComponent<AudioSource>().clip = invadermarchSound[type + 1];
+	//GetComponent<AudioSource>().Play();
+	//marchTimer2 = Time.time * (invaderNr / 50f);
+	//soundPlayed = false;
+	//}
+	//
+	//void PlayInvaderMarch4(int type)
+	//{
+	//GetComponent<AudioSource>().clip = invadermarchSound[type + 1];
+	//GetComponent<AudioSource>().Play();
+	//marchTimer3 = Time.time * (invaderNr / 50f);
+	//soundPlayed = false;
+	//}
 }
