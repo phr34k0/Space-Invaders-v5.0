@@ -15,7 +15,7 @@ Download the whole zip and open main scene in /Assets/Game Assets/_Scenes with y
 
 Or
 
-Just download "Phr34kz Space Invaders_Data" foler with "Phr34kz Space Invaders.exe" to play on your winblows
+Just download "Phr34kz Space Invaders_Data" folder with "Phr34kz Space Invaders.exe" to play on your winblows
 ```
 
 Usage
