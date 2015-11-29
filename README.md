@@ -1,0 +1,31 @@
+Space Invaders for Unity 5.0+
+==============================
+
+0. Added tons of shit.
+0. Left with fancy Stage Level, Game Over and Object destroyed points graphical pop-up
+
+Installation
+-----------
+
+```
+Download the whole zip and open main scene in /Assets/Game Assets/_Scenes with your Unity3D
+
+Or
+
+Just download "Phr34kz Space Invaders_Data" foler with "Phr34kz Space Invaders.exe" to play on your winblows
+```
+
+Usage
+-----
+
+Controls are
+
+Spacebar = Shoot
+A = Move Left
+D = Move Right
+
+
+Last Words
+------------
+
+Have fun fgts! XD
