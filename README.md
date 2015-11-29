@@ -5,7 +5,7 @@ Coded in C-Sharp
 
 
 0. Added tons of shit.
-0. Left with fancy Stage Level, Game Over and Object destroyed points graphical pop-up
+0. Left with fancy Stage Level, Game Over and Object destroyed points graphical pop-up.
 
 Installation
 -----------
@@ -23,9 +23,9 @@ Usage
 
 Controls are
 
-Spacebar = Shoot
-A = Move Left
-D = Move Right
+* Spacebar = Shoot
+* A = Move Left
+* D = Move Right
 
 
 Last Words
