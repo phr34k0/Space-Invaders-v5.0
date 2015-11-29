@@ -4,7 +4,7 @@ Space Invaders for Unity 5.0+
 Coded in C-Sharp
 
 
-0. Added tons of shit.
+0. Added tons of shit and bunch of stuffs that the class didn't managed to do so uh.. lol
 0. Left with fancy Stage Level, Game Over and Object destroyed points graphical pop-up.
 
 Installation
