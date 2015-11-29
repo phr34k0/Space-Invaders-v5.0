@@ -31,4 +31,4 @@ Controls are
 Last Words
 ------------
 
-Have fun fgts! XD
+Have fun fgts!.. XD
