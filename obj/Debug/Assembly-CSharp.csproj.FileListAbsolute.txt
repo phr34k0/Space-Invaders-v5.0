@@ -20,3 +20,24 @@ E:\UnityProjects\SI.DIT915\Temp\bin\Debug\UnityEngine.Networking.xml
 E:\UnityProjects\SI.DIT915\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 E:\UnityProjects\SI.DIT915\obj\Debug\Assembly-CSharp.dll
 E:\UnityProjects\SI.DIT915\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEditor.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.Networking.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.UI.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Unity.SerializationLogic.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Unity.UNetWeaver.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Unity.CecilTools.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Mono.Cecil.Pdb.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\Mono.Cecil.Mdb.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.xml
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEditor.xml
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.UI.xml
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\Temp\bin\Debug\UnityEngine.Networking.xml
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\obj\Debug\Assembly-CSharp.dll
+C:\Users\Phr34kz\Desktop\GAMES CLASS\Space Invaders Final\obj\Debug\Assembly-CSharp.pdb

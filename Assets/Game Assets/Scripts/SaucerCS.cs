@@ -81,6 +81,7 @@ public class SaucerCS : MonoBehaviour {
 	public void DestroySaucer()
 	{
 		gm.saucerMade = false;
+		gm.saucerTimer = Time.time + Random.Range(5.0f, 10f);
 		Destroy (this.gameObject);
 	}
 

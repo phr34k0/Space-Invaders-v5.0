@@ -5,6 +5,7 @@ public class EnemyCS : MonoBehaviour {
 
     private Vector3 invaderPos;
     public bool moveDown;
+	//public bool moveStep;
 
     public GameObject missilePrefab;
     private GameObject missileObject;
@@ -34,8 +35,8 @@ public class EnemyCS : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () {   
-        MoveInvader();
+	void Update () {
+		MoveInvader();
 	}
 
     void LateUpdate()
@@ -52,9 +53,16 @@ public class EnemyCS : MonoBehaviour {
 
     void FixedUpdate()
     {
+		/*if(moveStep)
+		{
+			moveStep = false;
+			MoveInvader();
+		}*/
+
         CheckBottom();
-        if (isBottom && !missileMade && gm.totalMissiles < gm.maxMissiles && Random.Range(0, 10) < 2)
+        if (isBottom && !missileMade && gm.totalMissiles < gm.maxMissiles && Random.Range(0, 10) < 0.1)
         {
+			missileMade = true;
             MakeMissile(invaderPos);
         }
     }
@@ -73,7 +81,8 @@ public class EnemyCS : MonoBehaviour {
             }
             else
             {
-                invaderPos.x -= gm.invaderSpeed * Time.deltaTime;
+				//invaderPos.x += gm.invaderSpeed * Time.deltaTime;
+                invaderPos.x -= gm.invaderSpeed * (gm.maxInvaders/ gm.currentInvaders) * gm.currentLevel * 0.01f;
             }
         }
         else if(gm.invaderDirection == 1)
@@ -86,7 +95,8 @@ public class EnemyCS : MonoBehaviour {
             }
             else
             {
-                invaderPos.x += gm.invaderSpeed * Time.deltaTime;
+                //invaderPos.x += gm.invaderSpeed * Time.deltaTime;
+				invaderPos.x += gm.invaderSpeed * (gm.maxInvaders/ gm.currentInvaders) * gm.currentLevel * 0.01f;
             } 
         }
 
@@ -103,8 +113,7 @@ public class EnemyCS : MonoBehaviour {
             
             invaderPos.y -= 0.25f;
             moveDown = false;  
-        } 
-
+        }
         this.transform.position = invaderPos;
     }
 
