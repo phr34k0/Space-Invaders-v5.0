@@ -27,8 +27,3 @@ Controls are
 * A = Move Left
 * D = Move Right
 
-
-Last Words
-------------
-
-Have fun fgts!.. XD
